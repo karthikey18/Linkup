@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>About {{ username }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="feed-header">
+    <h1 class="linkup-logo">LinkUp</h1>
+    <p>Meet. Share. Connect.</p>
+    <h2>About {{ username }}</h2>
+  </div>
+
+  <div class="profile-box">
+    {% if avatar %}
+      <img src="{{ url_for('static', filename='avatars/' + avatar) }}" class="avatar">
+    {% else %}
+      <img src="{{ url_for('static', filename='avatars/default.png') }}" class="avatar">
+    {% endif %}
+    <p><strong>{{ username }}</strong></p>
+    {% if bio %}
+      <p style="margin-top: 10px;">📝 {{ bio }}</p>
+    {% else %}
+      <p style="margin-top: 10px;">This user hasn’t written an About Me yet.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

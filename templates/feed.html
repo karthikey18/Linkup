@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LinkUp Feed</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="feed-header">
+    <h1 class="linkup-logo">LinkUp</h1>
+    <p>Meet. Share. Connect.</p>
+    <h2>Welcome, {{ username }}!</h2>
+    <p><a href="{{ url_for('profile', username=username) }}" style="color:#0ff;">View Profile</a> | <a href="{{ url_for('logout') }}" style="color:#f99;">Logout</a></p>
+  </div>
+
+  <form method="POST" enctype="multipart/form-data" class="post-form">
+    <textarea name="post" placeholder="What's on your mind?" required></textarea>
+    <label for="image-upload" class="upload-label">⬆️ Upload Image</label>
+    <input type="file" name="image" id="image-upload" accept="image/*">
+    <button type="submit">Post</button>
+  </form>
+
+  <div class="feed">
+    {% for post in posts %}
+      <div class="post">
+        <p><strong>{{ post.username }}</strong> at {{ post.timestamp }}</p>
+        <p>{{ post.content }}</p>
+        {% if post.image %}
+          <img src="{{ url_for('static', filename='uploads/' + post.image) }}" class="post-image">
+        {% endif %}
+        <form action="{{ url_for('like', post_id=post.id) }}" method="GET">
+          <button type="submit" class="like-btn">❤️ Like ({{ post.likes }})</button>
+        </form>
+        <form action="{{ url_for('comment', post_id=post.id) }}" method="POST" class="comment-box">
+          <input type="text" name="comment" placeholder="Add comment..." required>
+          <button type="submit">💬</button>
+        </form>
+        <div class="comments">
+          {% for comment in post.comments %}
+            <p>💬 {{ comment }}</p>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>s

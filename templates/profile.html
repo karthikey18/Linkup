@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ username }}'s Profile</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="feed-header">
+    <h1 class="linkup-logo">LinkUp</h1>
+    <p>Meet. Share. Connect.</p>
+    <h2>{{ username }}'s Profile</h2>
+    <p><a href="{{ url_for('feed', username=username) }}" style="color:#0ff;">Back to Feed</a></p>
+  </div>
+
+  <div class="profile-box">
+    {% if avatar %}
+      <img src="{{ url_for('static', filename='avatars/' + avatar) }}" class="avatar">
+    {% else %}
+      <img src="{{ url_for('static', filename='avatars/default.png') }}" class="avatar">
+    {% endif %}
+    <p><strong>{{ username }}</strong></p>
+    {% if email %}
+      <p>Email: {{ email }}</p>
+    {% endif %}
+  </div>
+
+  <hr>
+
+  <div class="feed">
+    <h3>Your Posts:</h3>
+    {% for post in posts %}
+      <div class="post">
+        <p><strong>{{ post.username }}</strong> at {{ post.timestamp }}</p>
+        <p>{{ post.content }}</p>
+        {% if post.image %}
+          <img src="{{ url_for('static', filename='uploads/' + post.image) }}" class="post-image">
+        {% endif %}
+        <p>❤️ Likes: {{ post.likes }}</p>
+        <div class="comments">
+          {% for comment in post.comments %}
+            <p>💬 {{ comment }}</p>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>

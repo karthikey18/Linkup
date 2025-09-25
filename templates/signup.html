@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="login-box">
+    <h2>Create Your Account</h2>
+    <form method="POST" enctype="multipart/form-data">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="email" name="email" placeholder="Email (optional)">
+      <label for="avatar-upload" class="upload-label">Upload Profile Picture</label>
+      <input type="file" name="avatar" id="avatar-upload" accept="image/*">
+      <button type="submit">Create Account</button>
+    </form>
+    <p style="margin-top: 10px;">Already have an account? <a href="{{ url_for('login') }}" style="color: #0ff;">Login</a></p>
+  </div>
+</body>
+</html>
